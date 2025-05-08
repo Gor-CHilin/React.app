@@ -1,27 +1,42 @@
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const FOLLOW = 'ADD-FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET_USERS'
 
 let initialState = {
-	posts: [
-		{ id: 1, message: 'Hi ,how are you?', likesCount: 12 },
-		{ id: 2, message: 'Its my first post', likesCount: 11 },
-		{ id: 3, message: 'blabla', likesCount: 3 },
-		{ id: 4, message: 'hahha', likesCount: 20 },
-	],
-	newPostText: 'It-kamasutra.com',
+	users: [],
 }
 
-const profileReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case FOLLOW:
+			return {
+				...state,
+				users: state.users.map(u => {
+					if (u.id === action.userId) {
+						return { ...u, followed: true }
+					}
+					return u
+				}),
+			}
+		case UNFOLLOW:
+			return {
+				...state,
+				users: state.users.map(u => {
+					if (u.id === action.userId) {
+						return { ...u, followed: false }
+					}
+					return u
+				}),
+			}
+		case SET_USERS:
+			return { ...state, users: [...state.users, ...action.users] }
 		default:
 			return state
 	}
 }
 
-export const addPostActionCreator = () => ({ type: ADD_POST })
-export const updateNewPostActionCreator = text => ({
-	type: UPDATE_NEW_POST_TEXT,
-	newText: text,
-})
+export const followAC = userId => ({ type: FOLLOW, userId })
+export const unfollowAC = userId => ({ type: UNFOLLOW, userId })
+export const setUsersAC = users => ({ type: SET_USERS, users })
 
-export default profileReducer
+export default usersReducer
