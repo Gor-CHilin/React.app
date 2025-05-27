@@ -7,6 +7,10 @@ import store from './redux/redux-store'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
+let h1 =document.createElement("h1")
+h1.innerHTML ="Hello World"
+document.body.appendChild(h1)
+
 setInterval(() => {
 	store.dispatch({ type: 'FAKE' })
 }, 1000)

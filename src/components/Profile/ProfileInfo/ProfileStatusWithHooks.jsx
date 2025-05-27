@@ -4,7 +4,7 @@ import s from './ProfileInfo.module.css'
 const ProfileStatusWithHooks = props => {
 	let [editMode, setEditMode] = useState(false)
 	let [status, setStatus] = useState(props.status)
-	debugger
+
 	useEffect(() => {
 		setStatus(props.status)
 	}, [props.status])
@@ -29,7 +29,7 @@ const ProfileStatusWithHooks = props => {
 			{!editMode && (
 				<div>
 					<span onDoubleClick={activateEditMode}>
-						{status || "you don't have a status"} yo
+						{status || "you don't have a status"} 
 					</span>
 				</div>
 			)}
